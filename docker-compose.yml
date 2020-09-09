@@ -7,6 +7,8 @@ networks:
     driver: ${NETWORKS_DRIVER}
 
 volumes:
+  cockroachdb:
+    driver: ${VOLUMES_DRIVER}
   mysql:
     driver: ${VOLUMES_DRIVER}
   percona:
@@ -449,6 +451,19 @@ services:
         - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
         - "${MYSQL_PORT}:3306"
+      networks:
+        - backend
+
+### CockroachDB ################################################
+    cockroachdb:
+      build:
+        context: ./cockroachdb
+        args:
+          - COCKROACHDB_VERSION=${COCKROACHDB_VERSION}
+      volumes:
+        - ${DATA_PATH_HOST}/cockroach:/cockroach/cockroach-data
+      ports:
+        - "${COCKROACHDB_PORT}:26257"
       networks:
         - backend
 
