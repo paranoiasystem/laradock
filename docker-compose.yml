@@ -462,6 +462,8 @@ services:
           - COCKROACHDB_VERSION=${COCKROACHDB_VERSION}
       volumes:
         - ${DATA_PATH_HOST}/cockroach:/cockroach/cockroach-data
+      command: 
+        - start --insecure
       ports:
         - "${COCKROACHDB_PORT}:26257"
       networks:
