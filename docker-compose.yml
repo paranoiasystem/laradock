@@ -460,12 +460,12 @@ services:
         context: ./cockroachdb
         args:
           - COCKROACHDB_VERSION=${COCKROACHDB_VERSION}
+      command: start-single-node --insecure
       volumes:
         - ${DATA_PATH_HOST}/cockroach:/cockroach/cockroach-data
-      command: 
-        - start --insecure
       ports:
         - "${COCKROACHDB_PORT}:26257"
+        - "${COCKROACHDB_ADMINUI_PORT}:8080"
       networks:
         - backend
 
